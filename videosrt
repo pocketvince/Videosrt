@@ -1,0 +1,61 @@
+#!/bin/bash
+#translate subtile
+#https://subtitlestranslator.com/en/
+if [[ $2 == "" ]]; then
+echo "Videosrt"
+echo "--------"
+echo ""
+echo "cmd: videosrt info \"video.mkv\""
+echo "result: Stream #0:2(eng) Subtitle: subrip"
+echo ""
+echo "cmd: videosrt extract \"video.mkv\" \"0:2\""
+echo "result: Creation of video.mkv.srt"
+echo ""
+echo "cmd: videosrt convert \"video.mkv\""
+echo "result: Generate file with yellow subtile"
+exit
+fi
+if [[ $1 == "info" ]]; then
+if [ ! -f "$2" ]; then
+echo "No such file"
+exit
+fi
+script -c "ffmpeg -i \"$2\"" temposrt > temposrt
+grep -q "No such file or directory" temposrt; [ $? -eq 0 ] && echo "No subtitles on the video" || grep Subtitle temposrt
+rm temposrt
+exit
+fi
+if [[ $1 == "extract" ]]; then
+if [ ! -f "$2.srt" ]; then
+echo '#!/bin/bash' > temposrt.sh
+echo "ffmpeg -i \"$2\" -map \"$3\" \"$2.srt\"" >> temposrt.sh
+chmod +x temposrt.sh
+script -c "./temposrt.sh" temposrt > temposrt
+rm temposrt*
+if [ ! -f "$2.srt" ]; then
+echo "No subtitles extracted, check if subtitles are available with the command: videosrt info \"$2\""
+exit
+fi
+echo "Subtitle exported with name: $2.srt"
+exit
+fi
+echo "$2.srt is already extracted"
+exit
+fi
+if [[ $1 == "convert" ]]; then
+if [ ! -f "$2.srt" ]; then
+echo "No subtitles found with the same file name, try renaming your file to \"$2.srt\" or check if subtitles are available with: videosrt info \"$2\""
+exit
+fi
+if [ ! -f "$2.conv.mp4" ]; then
+ffmpeg -i "$2" -filter:v "subtitles=filename=$2.srt:force_style='Fontsize=34,PrimaryColour=&H0000ffff,BorderStyle=3'" -codec:v "libx264" -codec:a "mp3" "$2.conv.mp4"
+if [ ! -f "$2.conv.mp4" ]; then
+echo "Error?"
+exit
+fi
+echo "$2.conv.mp4 converted"
+exit
+fi
+echo "$2.conv.mp4 is already converted"
+exit
+fi
