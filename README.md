@@ -6,7 +6,15 @@
 Small shell script to export and re-import subtitles and paste them into the video
 
 ## Installation
+Install ffmpeg 
+```shell
+git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+```
+or
 
+```shell
+apt-get install ffmpeg
+```
 Download the script and place it in /bin/videosrt
 
 ## Usage
@@ -29,5 +37,7 @@ result: Generate file with yellow subtile
 ## Contributing
 
 Readme generator: https://www.makeareadme.com/
-
 Translate subtitles: https://subtitlestranslator.com/en/
+
+## Extra info
+My television does not allow to change the color, font and size of the subtitles, script created to save my back 🥴
