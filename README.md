@@ -3,17 +3,15 @@
 ![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/19h25m11s016.png?raw=true "todo")
 ![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/19h27m33s978.png?raw=true "done")
 
-Small shell script to export and re-import subtitles and paste them into the video
+videosrt is a shell script that extracts subtitles from a video file (or YouTube video) and reinserts them as hard-coded, larger, yellow subtitles on a black background.
+
+## Update
+20230408: Cleaner code, now allowing the addition of subtitles in formats other than SRT, and some lines of yt-dlp code have been added to extract subtitles from YouTube videos as well. 
 
 ## Installation
-Install ffmpeg 
+Install ffmpeg & yt-dlp
 ```shell
-git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
-```
-or
-
-```shell
-apt-get install ffmpeg
+apt-get install ffmpeg yt-dlp -y
 ```
 Download the script and place it in /bin/videosrt
 
@@ -21,22 +19,22 @@ Download the script and place it in /bin/videosrt
 
 ```shell
 root@pocketvince:~# videosrt
-Videosrt
---------
+videosrt info "video.mkv"
+Displays information about the subtitles of the specified video
 
-cmd: videosrt info "video.mkv"
-result: Stream #0:2(eng) Subtitle: subrip
+videosrt extract "video.mkv" "0:0"
+Extracts subtitles from the specified video and saves them to an SRT file
 
-cmd: videosrt extract "video.mkv" "0:2"
-result: Creation of video.mkv.srt
+videosrt convert "video.mkv" "video.mkv.srt"
+Incorporates subtitles from an SRT file into a video in large, yellow and with a black background
 
-cmd: videosrt convert "video.mkv"
-result: Generate file with yellow subtile
-```
+videosrt extract-yt "link"
+Displays the list of available subtitles for a YTvideo, choose language & extracts the subtitles into an SRT file and downloads the video in mp4
 
 ## Contributing
 
 Readme generator: https://www.makeareadme.com/
+
 Translate subtitles: https://subtitlestranslator.com/en/
 
 ## Extra info
