@@ -2,7 +2,7 @@
 
 ![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/4-f2ef19ccf7.gif?raw=true "convert-st, convert, convert-ov")
 
-videosrt is a shell script that extracts subtitles from a video file (or YouTube video) and reinserts them as hard-coded, larger, yellow subtitles on a black background.
+Videosrt is a shell script that extracts subtitles from a video file (or YouTube video) and reinserts them as hard-coded, larger, yellow subtitles on a black background.
 
 ## Update
 20230408: Cleaner code, now allowing the addition of subtitles in formats other than SRT, and some lines of yt-dlp code have been added to extract subtitles from YouTube videos as well. 
