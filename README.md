@@ -6,8 +6,11 @@ videosrt is a shell script that extracts subtitles from a video file (or YouTube
 
 ## Update
 20230408: Cleaner code, now allowing the addition of subtitles in formats other than SRT, and some lines of yt-dlp code have been added to extract subtitles from YouTube videos as well. 
+
 20230409: Added two features:
+
 • Convert-OV: Blur the original video, and superpose at maximum height the same video reduced by 25% and include the subtitles (as on the "convert" command)
+
 • Convert-ST: Incorporates subtitles to the video and keeping standard size and color
 
 ## Installation
@@ -38,6 +41,7 @@ Incorporates subtitles to the video and keeping standard size and color
 
 videosrt extract-yt "link"
 Displays the list of available subtitles for a YTvideo, choose language & extracts the subtitles into an SRT file and downloads the video in mp4
+```
 
 ## Contributing
 
