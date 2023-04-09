@@ -1,12 +1,14 @@
 # Videosrt
 
-![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/19h25m11s016.png?raw=true "todo")
-![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/19h27m33s978.png?raw=true "done")
+![Alt text](https://raw.githubusercontent.com/pocketvince/videosrt/main/4-f2ef19ccf7.gif?raw=true "convert-st, convert, convert-ov")
 
 videosrt is a shell script that extracts subtitles from a video file (or YouTube video) and reinserts them as hard-coded, larger, yellow subtitles on a black background.
 
 ## Update
 20230408: Cleaner code, now allowing the addition of subtitles in formats other than SRT, and some lines of yt-dlp code have been added to extract subtitles from YouTube videos as well. 
+20230409: Added two features:
+• Convert-OV: Blur the original video, and superpose at maximum height the same video reduced by 25% and include the subtitles (as on the "convert" command)
+• Convert-ST: Incorporates subtitles to the video and keeping standard size and color
 
 ## Installation
 Install ffmpeg & yt-dlp
@@ -27,6 +29,12 @@ Extracts subtitles from the specified video and saves them to an SRT file
 
 videosrt convert "video.mkv" "video.mkv.srt"
 Incorporates subtitles from an SRT file into a video in large, yellow and with a black background
+
+videosrt convert-ov "video.mkv" "video.mkv.srt"
+Blur the original video, and superpose at maximum height the same video reduced by 25% and include the subtitles (as on the "convert" command)
+
+videosrt convert-st "video.mkv" "video.mkv.srt"
+Incorporates subtitles to the video and keeping standard size and color
 
 videosrt extract-yt "link"
 Displays the list of available subtitles for a YTvideo, choose language & extracts the subtitles into an SRT file and downloads the video in mp4
