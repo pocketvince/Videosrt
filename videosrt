@@ -1,6 +1,4 @@
 #!/bin/bash
-#translate subtile
-#https://subtitlestranslator.com/en/
 if [ "$1" = "info" ]; then
 if ffmpeg -i "$2" 2>&1 | grep -q "No such file: $2"; then
 echo "No subtitles on the video"
@@ -42,6 +40,29 @@ else
 ffmpeg -i "$2" -filter:v "subtitles=filename='$3':force_style='Fontsize=34,PrimaryColour=&H0000ffff,BorderStyle=3'" -codec:v "libx264" -codec:a "mp3" "$2.videosrt.mp4"
 fi
 
+elif [ "$1" = "convert-ov" ]; then
+if [ -e "$2.videosrt-ov.mp4" ]; then
+echo "File already converted: $2.videosrt-ov.mp4"
+elif [ ! -e "$2" ]; then
+echo "No such file: $2"
+elif [ ! -e "$3" ]; then
+echo "No such file: $3"
+else
+ffmpeg -i "$2" -filter_complex "[0:v]boxblur=10[blur];[0:v]scale=iw*0.75:-1[ovrl];[blur][ovrl]overlay=(W-w)/2:0,subtitles=filename='$3':force_style='Fontsize=34,PrimaryColour=&H0000ffff,BorderStyle=3'" -codec:v libx264 -codec:a mp3 "$2.videosrt-ov.mp4"
+fi
+
+elif [ "$1" = "convert-st" ]; then
+if [ -e "$2.videosrt-st.mp4" ]; then
+echo "File already converted: $2.videosrt-st.mp4"
+elif [ ! -e "$2" ]; then
+echo "No such file: $2"
+elif [ ! -e "$3" ]; then
+echo "No such file: $3"
+else
+ffmpeg -i "$2" -vf subtitles="$3" "$2.videosrt-st.mp4"
+fi
+
+
 elif [ "$1" = "extract-yt" ]; then
 yt-dlp --list-subs "$2"
 echo "Language:"
@@ -60,6 +81,12 @@ echo 'Extracts subtitles from the specified video and saves them to an SRT file'
 echo ''
 echo 'videosrt convert "video.mkv" "video.mkv.srt"'
 echo 'Incorporates subtitles from an SRT file into a video in large, yellow and with a black background'
+echo ''
+echo 'videosrt convert-ov "video.mkv" "video.mkv.srt"'
+echo 'Blur the original video, and superpose at maximum height the same video reduced by 25% and include the subtitles (as on the "convert" command)'
+echo ''
+echo 'videosrt convert-st "video.mkv" "video.mkv.srt"'
+echo 'Incorporates subtitles to the video and keeping standard size and color'
 echo ''
 echo 'videosrt extract-yt "link"'
 echo 'Displays the list of available subtitles for a YTvideo, choose language & extracts the subtitles into an SRT file and downloads the video in mp4'
